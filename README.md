@@ -34,7 +34,7 @@ This notebook prepares the retail store sales dataset for clustering analysis. S
    - Applied StandardScaler to numeric columns (Price Per Unit, Quantity, Total Spent).  
    - Saved final preprocessed dataset: `final_preprocessed_clustering.csv`.  
 
-5. **Visualizations (Optional)**  
+5. **Visualizations**  
    - Histogram for `Total Spent` after outlier removal.  
    - Correlation heatmap for numeric columns after scaling.  
 
@@ -53,4 +53,5 @@ This notebook prepares the retail store sales dataset for clustering analysis. S
 
 - Dataset: [retail_store_sales.csv](https://www.kaggle.com/datasets/ahmedmohamed2003/retail-store-sales-dirty-for-data-cleaning)  
 - Feature scaling & preprocessing techniques: [scikit-learn documentation](https://scikit-learn.org/stable/)  
-- Outlier detection using IQR: [IQR method in Python](https://towardsdatascience.com/outlier-detection-using-iqr-in-python-2f7ec77f6b79)
+- How to detect outliers using IQR and Boxplots? — MachineLearningPlus  
+  (https://www.machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/)
