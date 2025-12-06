@@ -9,8 +9,7 @@ This notebook prepares the retail store sales dataset for clustering analysis. S
 
 ## Dataset
 
-- Source: `retail_store_sales.csv`  
-- Original Shape: (12575, 11)  
+- [retail_store_sales.csv](https://www.kaggle.com/datasets/ahmedmohamed2003/retail-store-sales-dirty-for-data-cleaning) (12575 rows × 11 columns)  
 - Columns: Transaction ID, Customer ID, Category, Item, Price Per Unit, Quantity, Total Spent, Payment Method, Location, Transaction Date, Discount Applied  
 
 ## Steps Performed  
@@ -52,6 +51,6 @@ This notebook prepares the retail store sales dataset for clustering analysis. S
 
 ### References / Sources
 
-- Dataset: [`retail_store_sales.csv`](https://example.com/retail_store_sales.csv)
+- Dataset: [retail_store_sales.csv](https://www.kaggle.com/datasets/ahmedmohamed2003/retail-store-sales-dirty-for-data-cleaning)  
 - Feature scaling & preprocessing techniques: [scikit-learn documentation](https://scikit-learn.org/stable/)  
-- Outlier detection using IQR: [Medium article on IQR method](https://medium.com/@smarter.codes/outlier-detection-in-python-using-iqr-method-8c6e0c6c1c10)
+- Outlier detection using IQR: [IQR method in Python](https://towardsdatascience.com/outlier-detection-using-iqr-in-python-2f7ec77f6b79)
