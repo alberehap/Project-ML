@@ -99,7 +99,7 @@ This notebook prepares the cafe sales dataset for classification analysis. Steps
      * y_train: (8960,)
      * y_test:  (1447,)
 
-5. **Optional Visualizations**
+5. **Visualizations**
 
    * Histogram for `Total Spent`.
    * Scatter plot of `Quantity` vs `Total Spent`.
