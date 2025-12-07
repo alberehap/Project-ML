@@ -4,7 +4,7 @@ Clustering &amp; Classification Data Analysis
 
 # Clustering Preprocessing
 
- Data Preprocessing for Clustering Analysis  
+Data Preprocessing for Clustering Analysis  
 This notebook prepares the retail store sales dataset for clustering analysis. Steps include handling missing values, removing outliers, encoding categorical data, and feature scaling. Optional visualizations are provided for data inspection.
 
 ## Dataset
@@ -55,3 +55,70 @@ This notebook prepares the retail store sales dataset for clustering analysis. S
 - Feature scaling & preprocessing techniques: [scikit-learn documentation](https://scikit-learn.org/stable/)  
 - How to detect outliers using IQR and Boxplots? — MachineLearningPlus  
   (https://www.machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/)
+
+_____________________________________________________________________
+
+# Classification Preprocessing
+
+Data Preprocessing for Classification Analysis
+This notebook prepares the cafe sales dataset for classification analysis. Steps include handling missing values, encoding categorical data, balancing classes, and splitting the dataset. Optional visualizations are included.
+
+## Dataset
+
+- [cafe_sales.csv](https://www.kaggle.com/datasets/ahmedmohamed2003/cafe-sales-dirty-data-for-cleaning-training) (10000 rows × 8 columns)  
+- Columns: Transaction ID, Customer ID, Payment Method, Location, Quantity, Total Spent, Item Categories (Coffee, Tea, Juice, etc.), Transaction Date
+
+## Steps
+
+1. **Missing Values & Duplicates**
+
+   * Removed rows with missing essential values.
+   * Filled missing numeric values with median, categorical with mode.
+   * Removed duplicate rows.
+   * Saved cleaned dataset.
+
+2. **Encoding Categorical Data**
+
+   * One-hot encoding for categorical columns: Item Categories, Location.
+   * Converted target `Payment Method` to numeric labels.
+   * Saved encoded dataset.
+
+3. **Feature Scaling**
+
+   * Applied StandardScaler to numeric columns: Quantity, Total Spent.
+   * Saved final preprocessed dataset.
+
+4. **Train/Test Split & Class Balancing**
+
+   * Split dataset into training (80%) and testing (20%) sets.
+   * Applied SMOTE to balance classes in training data.
+   * Final shapes:
+
+     * X_train: (8960, 23)
+     * X_test:  (1447, 23)
+     * y_train: (8960,)
+     * y_test:  (1447,)
+
+5. **Optional Visualizations**
+
+   * Histogram for `Total Spent`.
+   * Scatter plot of `Quantity` vs `Total Spent`.
+   * Correlation heatmap for numeric columns.
+
+## Dependencies
+
+`pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `imblearn`
+
+## My Role
+
+* Implemented preprocessing pipeline for classification: missing values, encoding, scaling, splitting, and class balancing.
+* Generated optional visualizations to verify preprocessing.
+* Saved intermediate and final datasets and pushed files to GitHub.
+
+## References / Sources
+
+* Dataset: [cafe_sales.csv](https://www.kaggle.com/datasets/ahmedmohamed2003/cafe-sales-dirty-data-for-cleaning-training)
+* Feature scaling & preprocessing techniques: [scikit-learn documentation](https://scikit-learn.org/stable/)
+* Handling class imbalance using SMOTE: [imbalanced-learn documentation](https://imbalanced-learn.org/stable/)
+* Outlier detection & preprocessing tips: [MachineLearningPlus](https://www.machinelearningplus.com/)
+
