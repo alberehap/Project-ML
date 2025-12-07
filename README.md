@@ -4,7 +4,7 @@ Clustering &amp; Classification Data Analysis
 
 ---
 
-## 📁 **01_data_overview.ipynb - Data Overview & EDA + Evaluation**
+##  **01_data_overview.ipynb - Data Overview & EDA + Evaluation**
 
 This notebook handles dataset preparation, exploratory data analysis, and model evaluation.
 
@@ -24,7 +24,7 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
      - Scatter plots (Quantity vs Total Spent)
      - Correlation matrix heatmap
 
-3. **Model Evaluation** ⭐
+3. **Model Evaluation** 
    - **Accuracy Score** - Calculates accuracy for all supervised models
    - **F1 Score** - Computes weighted F1 score for each model
    - **Confusion Matrix** - Creates visualizations for all models
@@ -51,7 +51,7 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
 
 ---
 
-## 📁 **06_supervised_models.ipynb - Supervised Model Training**
+##  **06_supervised_models.ipynb - Supervised Model Training**
 
 This notebook trains supervised learning models and generates predictions.
 
@@ -89,13 +89,13 @@ This notebook trains supervised learning models and generates predictions.
 - `scikit-learn` (for models: `LogisticRegression`, `GaussianNB`, `DecisionTreeClassifier`, `SVC`)
 
 ### **Important Notes:**
-- ⚠️ **No evaluation metrics** are calculated in this notebook
+-  **No evaluation metrics** are calculated in this notebook
 - All evaluation (Accuracy, F1, Confusion Matrix) is handled by `01_data_overview.ipynb`
 - Predictions are saved as CSV files to be loaded and evaluated by the evaluation notebook
 
 ---
 
-## 🔄 **Data Flow Between Notebooks**
+##  **Data Flow Between Notebooks**
 
 ```
 06_supervised_models.ipynb (Training):
@@ -122,13 +122,13 @@ This notebook trains supervised learning models and generates predictions.
 
 ---
 
-## 🎯 **Key Features - Updated Structure**
+##  **Key Features - Updated Structure**
 
 ### **Separation of Concerns:**
 
-- ✅ **`01_data_overview.ipynb`** handles **Evaluation** (Accuracy, F1, Confusion Matrix)
-- ✅ **`06_supervised_models.ipynb`** focuses only on **Model Training** (no evaluation metrics)
-- ✅ Clear separation: Training vs. Evaluation
+-  **`01_data_overview.ipynb`** handles **Evaluation** (Accuracy, F1, Confusion Matrix)
+-  **`06_supervised_models.ipynb`** focuses only on **Model Training** (no evaluation metrics)
+-  Clear separation: Training vs. Evaluation
 
 ### **Benefits:**
 
