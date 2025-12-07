@@ -2,6 +2,146 @@
 
 Clustering &amp; Classification Data Analysis
 
+---
+
+## 📁 **01_data_overview.ipynb - Data Overview & EDA + Evaluation**
+
+This notebook handles dataset preparation, exploratory data analysis, and model evaluation.
+
+### **Features:**
+
+1. **Dataset Selection & Loading**
+   - Loads classification dataset (`dirty_cafe_sales.csv`)
+   - Loads clustering dataset (`retail_store_sales.csv`)
+   - Reads raw datasets from `data/raw/`
+
+2. **Exploratory Data Analysis (EDA)**
+   - Dataset shape overview
+   - Missing values analysis and summary
+   - Duplicates detection and overview
+   - Basic visualizations:
+     - Distribution plots (histograms)
+     - Scatter plots (Quantity vs Total Spent)
+     - Correlation matrix heatmap
+
+3. **Model Evaluation** ⭐
+   - **Accuracy Score** - Calculates accuracy for all supervised models
+   - **F1 Score** - Computes weighted F1 score for each model
+   - **Confusion Matrix** - Creates visualizations for all models
+   - **Classification Report** - Generates detailed per-class metrics
+
+### **Input Files:**
+- `data/raw/dirty_cafe_sales.csv` - Classification dataset
+- `data/raw/retail_store_sales.csv` - Clustering dataset
+- `data/processed/X_test_classification.csv` - Test features
+- `data/processed/y_test_classification.csv` - Test labels
+- `data/processed/y_pred_lr.csv` - Logistic Regression predictions
+- `data/processed/y_pred_nb.csv` - Naive Bayes predictions
+- `data/processed/y_pred_dt.csv` - Decision Tree predictions
+- `data/processed/y_pred_svm.csv` - SVM predictions
+
+### **Output:**
+- Evaluation results displayed in notebook
+- Confusion matrix visualizations (2x2 grid)
+- Classification reports for each model
+
+### **Dependencies:**
+- `pandas`, `numpy`, `matplotlib`, `seaborn`
+- `scikit-learn` (for evaluation metrics: `accuracy_score`, `f1_score`, `confusion_matrix`, `classification_report`)
+
+---
+
+## 📁 **06_supervised_models.ipynb - Supervised Model Training**
+
+This notebook trains supervised learning models and generates predictions.
+
+### **Features:**
+
+1. **Model Training**
+   - Trains 4 supervised classification models:
+     - **Logistic Regression** - Linear classification model
+     - **Naive Bayes** - Probabilistic classifier
+     - **Decision Tree** - Tree-based classifier
+     - **SVM** - Support Vector Machine
+
+2. **Prediction Generation**
+   - Generates predictions on test set for each model
+   - Saves predictions to CSV files for evaluation
+
+3. **Model Status Tracking**
+   - Simple comparison table showing training status
+   - **Note**: This notebook does NOT calculate evaluation metrics
+
+### **Input Files:**
+- `data/processed/X_train_classification.csv` - Training features
+- `data/processed/X_test_classification.csv` - Test features
+- `data/processed/y_train_classification.csv` - Training labels
+- `data/processed/y_test_classification.csv` - Test labels
+
+### **Output Files:**
+- `data/processed/y_pred_lr.csv` - Logistic Regression predictions
+- `data/processed/y_pred_nb.csv` - Naive Bayes predictions
+- `data/processed/y_pred_dt.csv` - Decision Tree predictions
+- `data/processed/y_pred_svm.csv` - SVM predictions
+
+### **Dependencies:**
+- `pandas`, `numpy`
+- `scikit-learn` (for models: `LogisticRegression`, `GaussianNB`, `DecisionTreeClassifier`, `SVC`)
+
+### **Important Notes:**
+- ⚠️ **No evaluation metrics** are calculated in this notebook
+- All evaluation (Accuracy, F1, Confusion Matrix) is handled by `01_data_overview.ipynb`
+- Predictions are saved as CSV files to be loaded and evaluated by the evaluation notebook
+
+---
+
+## 🔄 **Data Flow Between Notebooks**
+
+```
+06_supervised_models.ipynb (Training):
+    Train Models → Generate Predictions → Save to CSV
+         ↓
+    data/processed/y_pred_*.csv
+         ↓
+01_data_overview.ipynb (Evaluation):
+    Load Predictions → Calculate Metrics → Visualize Results
+```
+
+### **Step-by-Step Process:**
+
+1. **Run `06_supervised_models.ipynb`:**
+   - Trains all 4 models on training data
+   - Generates predictions on test set
+   - Saves predictions to CSV files in `data/processed/`
+
+2. **Run evaluation section in `01_data_overview.ipynb`:**
+   - Loads predictions from CSV files
+   - Calculates Accuracy and F1 Score for each model
+   - Creates Confusion Matrix visualizations
+   - Generates detailed Classification Reports
+
+---
+
+## 🎯 **Key Features - Updated Structure**
+
+### **Separation of Concerns:**
+
+- ✅ **`01_data_overview.ipynb`** handles **Evaluation** (Accuracy, F1, Confusion Matrix)
+- ✅ **`06_supervised_models.ipynb`** focuses only on **Model Training** (no evaluation metrics)
+- ✅ Clear separation: Training vs. Evaluation
+
+### **Benefits:**
+
+- Better code organization and modularity
+- Evaluation notebook has complete overview of data and results
+- Training notebook focuses solely on model implementation
+- Easier maintenance and code review
+
+---
+
+
+# Clustering &amp; Classification Data Analysis
+
 # Clustering Preprocessing
 
 Data Preprocessing for Clustering Analysis  
