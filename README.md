@@ -262,3 +262,107 @@ This notebook prepares the cafe sales dataset for classification analysis. Steps
 * Handling class imbalance using SMOTE: [imbalanced-learn documentation](https://imbalanced-learn.org/stable/)
 * Outlier detection & preprocessing tips: [MachineLearningPlus](https://www.machinelearningplus.com/)
 
+# Regression Preprocessing
+FIFA 21 Player Regression Preprocessing
+
+This repository contains the preprocessing pipeline for the FIFA 21 player dataset, preparing it for regression modeling.
+
+##The following libraries were used:
+
+```python
+ pandas 
+numpy 
+ matplotlib
+ seaborn 
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+ re
+ warnings
+warnings.filterwarnings('ignore')
+
+2. Load Dataset
+df = pd.read_csv("path_to/fifa21_raw_data.csv")
+The dataset contains 18,979 players and 77 columns including player attributes, personal info, contract details, and performance stats.
+
+3.1 Column Cleaning
+
+Removed special characters (↓) from column names.
+
+Dropped unnecessary columns: photoUrl, playerUrl, LongName.
+
+3.2 Height & Weight
+
+Converted height from feet/inches to centimeters.
+
+Converted weight from lbs/kg to kilograms.
+
+3.3 Currency Columns
+
+Value, Wage, and Release Clause converted from string (e.g., €1.2M, €500K) to numeric values.
+
+3.4 Rating Columns
+
+Removed stars from W/F, SM, IR and converted to integer.
+
+3.5 Hits
+
+Cleaned the Hits column, converting values like '372K' to integers.
+
+3.6 Team & Contract
+
+Extracted Team, Contract_Start, and Contract_End from the Team & Contract column.
+
+4-Extracted the primary position from the Positions column.
+
+Mapped positions to general categories:
+
+Category	Positions
+GK	       GK
+DEF	    CB, LB, RB, LWB, RWB
+MID	    CDM, CM, CAM, LM, RM
+ATT	    LW, RW, ST, CF
+
+code:
+df_clean['Primary_Position'] = df_clean['Positions'].str.split().str[0]
+df_clean['Position_Category'] = df_clean['Primary_Position'].map(position_map)
+
+5. Loan Status
+
+Created a binary column On_Loan indicating if a player is currently on loan
+
+code:
+df_clean['On_Loan'] = df_clean['Loan Date End'].notna().astype(int)
+
+6. Missing Values Handling
+
+Numerical columns: filled missing values with median.
+
+Categorical columns: filled missing values with 'Unknown'.
+
+7. outlier Handling
+
+Capped outliers in Height and Weight using the IQR method.
+
+8. Future Engineering
+Age Category: Young, Prime, Experienced, Veteran.
+
+Performance Scores: Attack, Defense, Passing, Physical.
+
+Growth Metrics: Potential Growth (POT - OVA), Value per Rating.
+
+BMI Calculation: Weight / (Height/100)^2.
+
+Contract Metrics: Contract length and years remaining.
+
+Star Player Flag: Is_Star for OVA >= 85.
+
+9. Encoding
+
+Binary Encoding: foot (Right=1, Left=0).
+
+Ordinal Encoding: Attack and Defense work rates (Low=1, Medium=2, High=3).
+
+One-Hot Encoding: Position_Category.
+
+Frequency Encoding: Nationality and Team.
+
+Label Encoding: Primary_Position
