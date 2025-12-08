@@ -301,7 +301,7 @@ Cluster labels can be used for downstream analysis or supervised learning integr
 
 ## Data Flow Between Notebooks
 
-##Clustering Notebook (Training):
+Clustering Notebook (Training):
 Train Models → Save Models → Save Cluster Labels → Save Clustered Data
 
 Models and labels can be used for visualization, analysis, or integration with other notebooks
