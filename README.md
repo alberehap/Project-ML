@@ -316,11 +316,6 @@ Extracted Team, Contract_Start, and Contract_End from the Team & Contract column
 
 Mapped positions to general categories:
 
-Category	Positions
-GK	       GK
-DEF	    CB, LB, RB, LWB, RWB
-MID	    CDM, CM, CAM, LM, RM
-ATT	    LW, RW, ST, CF
 
 code:
 df_clean['Primary_Position'] = df_clean['Positions'].str.split().str[0]
@@ -328,7 +323,7 @@ df_clean['Position_Category'] = df_clean['Primary_Position'].map(position_map)
 
 5. Loan Status
 
-Created a binary column On_Loan indicating if a player is currently on loan
+--Created a binary column On_Loan indicating if a player is currently on loan
 
 code:
 df_clean['On_Loan'] = df_clean['Loan Date End'].notna().astype(int)
