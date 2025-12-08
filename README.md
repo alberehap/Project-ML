@@ -198,15 +198,14 @@ This notebook prepares the retail store sales dataset for clustering analysis. S
 
 _____________________________________________________________________
 
-🟢 Clustering Model Training
+# Clustering Model Training
 
-Description:
+## Description:
 This notebook trains unsupervised clustering models and saves cluster assignments for analysis and visualization.
 
-1️⃣ Features
-Model Training
+## Features
 
-Trains 4 clustering models:
+## Model Training:
 
 K-Means – Distance-based centroid clustering
 
@@ -216,9 +215,9 @@ Gaussian Mixture Model (GMM) – Probabilistic mixture model
 
 HDBSCAN / Agglomerative – Hierarchical density-based clustering or fallback
 
-Parameter Tuning
+## Parameter Tuning:
 
-Finds optimal parameters for each model using Silhouette Score:
+### Finds optimal parameters for each model using Silhouette Score:
 
 K for K-Means
 
@@ -228,7 +227,7 @@ n_components for GMM
 
 min_cluster_size for HDBSCAN or n_clusters for Agglomerative
 
-Model Training & Saving
+## Model Training & Saving:
 
 Trains each model with optimal parameters
 
@@ -238,18 +237,19 @@ Saves cluster labels as CSV for further analysis
 
 Saves dataset augmented with cluster assignments
 
-Visualization
+## Visualization:
 
 Generates scatter plots of clusters for all models
 
 Uses matplotlib to visualize results
 
-2️⃣ Input Files
+## Input Files
 
 data/processed/final_preprocessed_clustering.csv – Preprocessed dataset for clustering
 
-3️⃣ Output Files
-Models
+## Output Files
+
+### Models:
 
 models/kmeans_model.pkl
 
@@ -259,7 +259,7 @@ models/gmm_model.pkl
 
 models/hdbscan_model.pkl or models/agglomerative_model.pkl
 
-Cluster Labels
+## Cluster Labels:
 
 data/processed/kmeans_cluster_labels.csv
 
@@ -269,7 +269,7 @@ data/processed/gmm_cluster_labels.csv
 
 data/processed/hdbscan_cluster_labels.csv or agglomerative_cluster_labels.csv
 
-Clustered Data
+## Clustered Data:
 
 data/processed/clustered_data.csv
 
@@ -279,7 +279,7 @@ data/processed/gmm_clustered_data.csv
 
 data/processed/hdbscan_clustered_data.csv or agglomerative_clustered_data.csv
 
-4️⃣ Dependencies
+## Dependencies
 
 pandas, numpy
 
@@ -291,7 +291,7 @@ joblib
 
 matplotlib
 
-5️⃣ Notes
+## **Notes**
 
 No supervised evaluation metrics (Accuracy, F1) are calculated
 
@@ -299,14 +299,14 @@ Silhouette Score is used as an internal quality metric
 
 Cluster labels can be used for downstream analysis or supervised learning integration
 
-6️⃣ Data Flow Between Notebooks
-Clustering Notebook (Training):
-    Train Models → Save Models → Save Cluster Labels → Save Clustered Data
+## Data Flow Between Notebooks
 
+##Clustering Notebook (Training):
+Train Models → Save Models → Save Cluster Labels → Save Clustered Data
 
 Models and labels can be used for visualization, analysis, or integration with other notebooks
 
-7️⃣ Step-by-Step Process
+## Step-by-Step Process
 
 Load preprocessed dataset
 
@@ -318,7 +318,7 @@ Save models, labels, and clustered datasets
 
 Visualize clusters using scatter plots
 
-8️⃣ Benefits
+## Benefits
 
 Clear separation of clustering workflow
 
@@ -326,145 +326,7 @@ Modular and maintainable code: training, parameter tuning, saving, visualization
 
 Easy to update or extend with new clustering methods
 
-لو تحب، أقدر كمان أعمل نسخة Markdown جاهزة بصيغة GitHub README مع Icons وعلامات Sections واضحة بحيث لما تحطها على GitHub تبقى مرتّبة وجذّابة بصريًا جدًا.
-
-تحب أعملها؟
-
-You said:
-ضيف MY ROLE DECRIBTION و ال REFRENCES
-ChatGPT said:
-
-تمام! هنضيف دلوقتي قسم My Role Description و References للـ README، مع الحفاظ على التنسيق الواضح. هتبقى النتيجة كده:
-
-🟢 Clustering Model Training
-
-Description:
-This notebook trains unsupervised clustering models and saves cluster assignments for analysis and visualization.
-
-1️⃣ Features
-Model Training
-
-Trains 4 clustering models:
-
-K-Means – Distance-based centroid clustering
-
-DBSCAN – Density-based clustering
-
-Gaussian Mixture Model (GMM) – Probabilistic mixture model
-
-HDBSCAN / Agglomerative – Hierarchical density-based clustering or fallback
-
-Parameter Tuning
-
-Finds optimal parameters for each model using Silhouette Score:
-
-K for K-Means
-
-eps for DBSCAN
-
-n_components for GMM
-
-min_cluster_size for HDBSCAN or n_clusters for Agglomerative
-
-Model Training & Saving
-
-Trains each model with optimal parameters
-
-Saves trained models using joblib
-
-Saves cluster labels as CSV for further analysis
-
-Saves dataset augmented with cluster assignments
-
-Visualization
-
-Generates scatter plots of clusters for all models
-
-Uses matplotlib to visualize results
-
-2️⃣ Input Files
-
-data/processed/final_preprocessed_clustering.csv – Preprocessed dataset for clustering
-
-3️⃣ Output Files
-Models
-
-models/kmeans_model.pkl
-
-models/dbscan_model.pkl
-
-models/gmm_model.pkl
-
-models/hdbscan_model.pkl or models/agglomerative_model.pkl
-
-Cluster Labels
-
-data/processed/kmeans_cluster_labels.csv
-
-data/processed/dbscan_cluster_labels.csv
-
-data/processed/gmm_cluster_labels.csv
-
-data/processed/hdbscan_cluster_labels.csv or agglomerative_cluster_labels.csv
-
-Clustered Data
-
-data/processed/clustered_data.csv
-
-data/processed/dbscan_clustered_data.csv
-
-data/processed/gmm_clustered_data.csv
-
-data/processed/hdbscan_clustered_data.csv or agglomerative_clustered_data.csv
-
-4️⃣ Dependencies
-
-pandas, numpy
-
-scikit-learn (KMeans, DBSCAN, GaussianMixture, AgglomerativeClustering, silhouette_score)
-
-hdbscan (optional)
-
-joblib
-
-matplotlib
-
-5️⃣ Notes
-
-No supervised evaluation metrics (Accuracy, F1) are calculated
-
-Silhouette Score is used as an internal quality metric
-
-Cluster labels can be used for downstream analysis or supervised learning integration
-
-6️⃣ Data Flow Between Notebooks
-Clustering Notebook (Training):
-    Train Models → Save Models → Save Cluster Labels → Save Clustered Data
-
-
-Models and labels can be used for visualization, analysis, or integration with other notebooks
-
-7️⃣ Step-by-Step Process
-
-Load preprocessed dataset
-
-Train K-Means, DBSCAN, and GMM (and HDBSCAN if available)
-
-Test parameters for each model to maximize Silhouette Score
-
-Save models, labels, and clustered datasets
-
-Visualize clusters using scatter plots
-
-8️⃣ Benefits
-
-Clear separation of clustering workflow
-
-Modular and maintainable code: training, parameter tuning, saving, visualization
-
-Easy to update or extend with new clustering methods
-
-9️⃣ My Role Description
+## My Role Description
 
 Data Preprocessing: Cleaned and prepared the dataset for clustering
 
@@ -476,21 +338,21 @@ Model Saving & Reporting: Saved trained models, cluster labels, and clustered da
 
 Visualization: Created scatter plots for cluster analysis and comparison
 
-Documentation: Prepared clear README and structured workflow for reproducibility
+Documentation: Update README 
 
-🔟 References
+## References
 
-scikit-learn Clustering Documentation
+scikit-learn Clustering Documentation: https://scikit-learn.org/stable/modules/clustering.html
 
-HDBSCAN Documentation
+HDBSCAN Documentation: https://hdbscan.readthedocs.io/en/latest/
 
-K-Means Clustering Theory
+K-Means Clustering Theory: https://en.wikipedia.org/wiki/K-means_clustering
 
-DBSCAN Clustering Theory
+DBSCAN Clustering Theory: https://en.wikipedia.org/wiki/DBSCAN
 
-Gaussian Mixture Models
+Gaussian Mixture Models: https://scikit-learn.org/stable/modules/mixture.html
 
-Silhouette Score Explanation
+Silhouette Score Explanation: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html
 --------------------------------------------------------------------------------------------------
 # Classification Preprocessing
 
