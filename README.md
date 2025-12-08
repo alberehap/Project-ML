@@ -198,6 +198,140 @@ This notebook prepares the retail store sales dataset for clustering analysis. S
 
 _____________________________________________________________________
 
+# Clustering Model Training
+
+## Description
+This notebook trains unsupervised clustering models and saves cluster assignments for analysis and visualization.
+
+## Features
+
+### Model Training
+- K-Means – Distance-based centroid clustering  
+- DBSCAN – Density-based clustering  
+- Gaussian Mixture Model (GMM) – Probabilistic mixture model  
+- HDBSCAN / Agglomerative – Hierarchical density-based clustering or fallback  
+
+### Parameter Tuning
+- Finds optimal parameters for each model using **Silhouette Score**:  
+  - K for K-Means  
+  - eps for DBSCAN  
+  - n_components for GMM  
+  - min_cluster_size for HDBSCAN or n_clusters for Agglomerative  
+
+### Model Training & Saving
+- Trains each model with optimal parameters  
+- Saves trained models using **joblib**  
+- Saves cluster labels as CSV for further analysis  
+- Saves dataset augmented with cluster assignments  
+
+### Visualization
+- Generates scatter plots of clusters for all models  
+- Uses **matplotlib** to visualize results  
+
+## Input Files
+- `data/processed/final_preprocessed_clustering.csv` – Preprocessed dataset for clustering  
+
+## Output Files
+
+### Models
+- `models/kmeans_model.pkl`  
+- `models/dbscan_model.pkl`  
+- `models/gmm_model.pkl`  
+- `models/hdbscan_model.pkl` or `models/agglomerative_model.pkl`  
+
+### Cluster Labels
+- `data/processed/kmeans_cluster_labels.csv`  
+- `data/processed/dbscan_cluster_labels.csv`  
+- `data/processed/gmm_cluster_labels.csv`  
+- `data/processed/hdbscan_cluster_labels.csv` or `agglomerative_cluster_labels.csv`  
+
+### Clustered Data
+- `data/processed/clustered_data.csv`  
+- `data/processed/dbscan_clustered_data.csv`  
+- `data/processed/gmm_clustered_data.csv`  
+- `data/processed/hdbscan_clustered_data.csv` or `agglomerative_clustered_data.csv`  
+
+## Dependencies
+- pandas, numpy  
+- scikit-learn (KMeans, DBSCAN, GaussianMixture, AgglomerativeClustering, silhouette_score)  
+- hdbscan (optional)  
+- joblib  
+- matplotlib  
+
+## Notes
+- No supervised evaluation metrics (Accuracy, F1) are calculated  
+- Silhouette Score is used as an internal quality metric  
+- Cluster labels can be used for downstream analysis or supervised learning integration  
+
+## Data Flow Between Notebooks
+Clustering Notebook (Training):  
+Train Models → Save Models → Save Cluster Labels → Save Clustered Data  
+
+Models and labels can be used for visualization, analysis, or integration with other notebooks  
+
+## Step-by-Step Process
+1. Load preprocessed dataset  
+2. Train K-Means, DBSCAN, and GMM (and HDBSCAN if available)  
+3. Test parameters for each model to maximize Silhouette Score  
+4. Save models, labels, and clustered datasets  
+5. Visualize clusters using scatter plots  
+
+## Benefits
+- Clear separation of clustering workflow  
+- Modular and maintainable code: training, parameter tuning, saving, visualization  
+- Easy to update or extend with new clustering methods  
+
+## My Role Description
+- **Data Preprocessing:** Cleaned and prepared the dataset for clustering  
+- **Model Implementation:** Implemented K-Means, DBSCAN, GMM, and HDBSCAN/Agglomerative models  
+- **Parameter Tuning:** Tested multiple parameters and selected optimal values using Silhouette Score  
+- **Model Saving & Reporting:** Saved trained models, cluster labels, and clustered datasets  
+- **Visualization:** Created scatter plots for cluster analysis and comparison  
+- **Documentation:** Updated README  
+
+## Evaluation
+The clustering results were evaluated using **Silhouette Score** as the primary quality metric.  
+
+### Results Summary
+| Model                  | Silhouette Score | Additional Metrics          |
+|------------------------|----------------|----------------------------|
+| K-Means                | 0.207          | –                          |
+| DBSCAN                 | -0.062         | Noise points: high         |
+| GMM                    | 0.154          | AIC: -15920460.74, BIC: -15583072.66 |
+| HDBSCAN / Agglomerative | 0.175          | Noise points (if HDBSCAN): moderate |
+
+**Observations:**  
+- K-Means achieved the highest Silhouette Score, suggesting relatively better cluster separation.  
+- DBSCAN resulted in a negative Silhouette Score, indicating clusters were poorly defined.  
+- GMM performed moderately, with AIC and BIC values indicating model fit.  
+- HDBSCAN/Agglomerative provided intermediate performance, suitable for hierarchical or density-based structure analysis.  
+
+## Comparison
+All models were compared based on Silhouette Score and practical clustering behavior.  
+
+| Model                  | Strengths                                           | Limitations                                       |
+|------------------------|---------------------------------------------------|--------------------------------------------------|
+| K-Means                | Simple, interpretable, best Silhouette Score     | Sensitive to outliers, assumes spherical clusters |
+| DBSCAN                 | Detects arbitrary-shaped clusters, handles noise | Poor performance with current eps/min_samples    |
+| GMM                    | Probabilistic clustering, soft assignments       | Moderate separation, sensitive to initialization |
+| HDBSCAN / Agglomerative | Can detect hierarchical/density structures       | Requires careful parameter tuning, slightly lower score than K-Means |
+
+**Key Takeaways:**  
+- K-Means is currently the most effective clustering model for this dataset.  
+- DBSCAN needs further parameter optimization to improve clustering quality.  
+- GMM provides probabilistic insights but clusters are less distinct.  
+- HDBSCAN/Agglomerative is useful for hierarchical analysis and handling density variations.  
+
+## References
+- scikit-learn Clustering Documentation: https://scikit-learn.org/stable/modules/clustering.html  
+- HDBSCAN Documentation: https://hdbscan.readthedocs.io/en/latest/  
+- K-Means Clustering Theory: https://en.wikipedia.org/wiki/K-means_clustering  
+- DBSCAN Clustering Theory: https://en.wikipedia.org/wiki/DBSCAN  
+- Gaussian Mixture Models: https://scikit-learn.org/stable/modules/mixture.html  
+- Silhouette Score Explanation: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html  
+
+
+--------------------------------------------------------------------------------------------------
 # Classification Preprocessing
 
 Data Preprocessing for Classification Analysis
