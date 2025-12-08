@@ -265,100 +265,104 @@ This notebook prepares the cafe sales dataset for classification analysis. Steps
 -------------------------------------------------------
 
 # Regression Preprocessing
-FIFA 21 Player Regression Preprocessing
+# FIFA 21 Player Regression Preprocessing
 
-This repository contains the preprocessing pipeline for the FIFA 21 player dataset, preparing it for regression modeling.
+This repository contains a complete data preprocessing pipeline for the FIFA 21 player dataset, preparing it for regression modeling.
 
-##The following libraries were used:
+---
 
- pandas 
-numpy 
- matplotlib
- seaborn 
-from sklearn.preprocessing import StandardScaler, LabelEncoder
- re
- warnings
-warnings.filterwarnings('ignore')
+## Dataset
 
-2. Load Dataset
-df = pd.read_csv("path_to/fifa21_raw_data.csv")
-The dataset contains 18,979 players and 77 columns including player attributes, personal info, contract details, and performance stats.
+**fifa21_raw_data.csv** (18,979 rows × 77 columns)  
 
-3.1 Column Cleaning
+**Columns include:** Player ID, Name, Nationality, Positions, Age, OVA, POT, Team & Contract, Height, Weight, Foot, Ratings, Performance Stats, Work Rates, Contract Info, Hits, Value, Wage, Release Clause, etc.
 
-Removed special characters (↓) from column names.
+---
 
-Dropped unnecessary columns: photoUrl, playerUrl, LongName.
+## Steps Performed
 
-3.2 Height & Weight
+### 1. Handle Missing Values & Remove Duplicates
+- Filled missing numeric values with median.
+- Filled missing categorical values with mode or `'Unknown'`.
+- Removed duplicate rows.
 
-Converted height from feet/inches to centimeters.
+### 2. Column Cleaning
+- Removed special characters (`↓`) from column names.
+- Stripped extra whitespace from column names.
+- Dropped unnecessary columns: `photoUrl`, `playerUrl`, `LongName`.
 
-Converted weight from lbs/kg to kilograms.
+### 3. Height & Weight Cleaning
+- Converted `Height` from feet/inches to centimeters.
+- Converted `Weight` from lbs/kg to kilograms.
 
-3.3 Currency Columns
+### 4. Currency Columns Cleaning
+- Converted `Value`, `Wage`, and `Release Clause` to numeric (from strings like €1.2M, €500K).
 
-Value, Wage, and Release Clause converted from string (e.g., €1.2M, €500K) to numeric values.
+### 5. Rating Columns Cleaning
+- Removed stars from `W/F`, `SM`, `IR` and converted to integers.
 
-3.4 Rating Columns
+### 6. Hits Column Cleaning
+- Cleaned `Hits` column and converted values like '372K' to integers.
 
-Removed stars from W/F, SM, IR and converted to integer.
+### 7. Team & Contract Extraction
+- Extracted `Team`, `Contract_Start`, and `Contract_End` from the `Team & Contract` column.
+- Extracted 714 unique teams.
 
-3.5 Hits
+### 8. Player Position Categorization
+- Extracted primary position from `Positions`.
+- Mapped positions to general categories: GK, DEF, MID, ATT.
 
-Cleaned the Hits column, converting values like '372K' to integers.
+### 9. Loan Status
+- Created a binary column `On_Loan` indicating whether a player is on loan (1) or not (0).
+- Total players on loan: 1013.
 
-3.6 Team & Contract
+### 10. Drop Unnecessary Columns
+- Dropped `Team & Contract`, `Positions`, `Loan Date End`.
 
-Extracted Team, Contract_Start, and Contract_End from the Team & Contract column.
+### 11. Handling Missing Values
+- Ensured no remaining missing values after filling numeric and categorical columns.
 
-4-Extracted the primary position from the Positions column.
+### 12. Outlier Handling
+- Capped outliers in `Height` and `Weight` using the IQR method.
 
-Mapped positions to general categories:
+### 13. Feature Engineering
+- **Age Category:** Young, Prime, Experienced, Veteran.
+- **Performance Scores:** `Attack_Score`, `Defense_Score`, `Passing_Score`, `Physical_Score`.
+- **Growth Metrics:** `Potential_Growth = POT - OVA`, `Value_per_Rating`.
+- **BMI Calculation:** `Weight / (Height/100)^2`.
+- **Contract Metrics:** `Contract_Length`, `Years_Remaining`.
+- **Star Player Flag:** `Is_Star` for OVA >= 85.
 
+### 14. Encoding
+- **Binary Encoding:** `foot_encoded` (Right=1, Left=0).
+- **Ordinal Encoding:** AttackRate (`A/W`) and DefenseRate (`D/W`) as Low=1, Medium=2, High=3.
+- **One-Hot Encoding:** `Position_Category`.
+- **Frequency Encoding:** `Nationality_freq`, `Team_freq`.
+- **Label Encoding:** `Primary_Position`.
 
-code:
-df_clean['Primary_Position'] = df_clean['Positions'].str.split().str[0]
-df_clean['Position_Category'] = df_clean['Primary_Position'].map(position_map)
+---
 
-5. Loan Status
+## Dependencies
 
---Created a binary column On_Loan indicating if a player is currently on loan
+- pandas  
+- numpy  
+- matplotlib  
+- seaborn  
+- scikit-learn  
+- re  
 
-code:
-df_clean['On_Loan'] = df_clean['Loan Date End'].notna().astype(int)
+---
 
-6. Missing Values Handling
+## My Role
 
-Numerical columns: filled missing values with median.
+- Implemented a complete preprocessing pipeline for regression modeling.
+- Handled missing values, duplicates, outliers, categorical encoding, and feature scaling.
+- Extracted features and engineered new metrics for performance analysis.
 
-Categorical columns: filled missing values with 'Unknown'.
+---
 
-7. outlier Handling
+## References / Sources
 
-Capped outliers in Height and Weight using the IQR method.
-
-8. Future Engineering
-Age Category: Young, Prime, Experienced, Veteran.
-
-Performance Scores: Attack, Defense, Passing, Physical.
-
-Growth Metrics: Potential Growth (POT - OVA), Value per Rating.
-
-BMI Calculation: Weight / (Height/100)^2.
-
-Contract Metrics: Contract length and years remaining.
-
-Star Player Flag: Is_Star for OVA >= 85.
-
-9. Encoding
-
-Binary Encoding: foot (Right=1, Left=0).
-
-Ordinal Encoding: Attack and Defense work rates (Low=1, Medium=2, High=3).
-
-One-Hot Encoding: Position_Category.
-
-Frequency Encoding: Nationality and Team.
-
-Label Encoding: Primary_Position
+- Dataset: `fifa21_raw_data.csv`  
+- Feature scaling & preprocessing techniques: scikit-learn documentation  
+- Outlier detection using IQR: MachineLearningPlus ([Link](https://www.machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/))
