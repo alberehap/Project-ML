@@ -262,6 +262,8 @@ This notebook prepares the cafe sales dataset for classification analysis. Steps
 * Handling class imbalance using SMOTE: [imbalanced-learn documentation](https://imbalanced-learn.org/stable/)
 * Outlier detection & preprocessing tips: [MachineLearningPlus](https://www.machinelearningplus.com/)
 
+-------------------------------------------------------
+
 # Regression Preprocessing
 FIFA 21 Player Regression Preprocessing
 
@@ -269,7 +271,6 @@ This repository contains the preprocessing pipeline for the FIFA 21 player datas
 
 ##The following libraries were used:
 
-```python
  pandas 
 numpy 
  matplotlib
