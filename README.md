@@ -572,3 +572,13 @@ Linear Regression -->	Baseline regression model
 Ridge Regression -->	L2 regularization
 Lasso Regression -->	L1 regularization with feature selection
 Elastic Net	Combination of --> L1 & L2 regularization
+
+## Results Summary
+
+-All four models were successfully trained and evaluated.
+-Regularized models required feature scaling for optimal performance.
+-Elastic Net required increased iterations and stronger regularization to converge properly.
+-Final comparison was done using R² Score and RMSE.
+
+# How to run?
+
