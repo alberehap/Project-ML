@@ -590,3 +590,11 @@ BONUS_regression
 
 4. View evaluation metrics and model comparison results
 
+## Notes
+
+-Models were trained inside the notebook environment.
+
+-Trained models were not saved since deployment was not required for this project.
+
+-The focus of this work is on model comparison and performance evaluation.
+
