@@ -500,3 +500,69 @@ This repository contains a complete data preprocessing pipeline for the FIFA 21 
 - Dataset: `fifa21_raw_data.csv`  
 - Feature scaling & preprocessing techniques: scikit-learn documentation  
 - Outlier detection using IQR: MachineLearningPlus ([Link](https://www.machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/))
+
+------------------------------------------------------------------------------------------------------
+# FIFA Player Value Prediction – Regression Models
+In this section of the project, we used dataset (FIFA Players Dataset) to predict values of players using 4 regression models. The expected outcome is a comparison between the 4 models to determine which model is best.
+
+## Project Objectives
+
+-Use a preprocessed dataset provided by a teammate
+
+-Train and compare the following regression models:
+
+-*Linear Regression*
+
+-*Ridge Regression*
+
+-*Lasso Regression*
+
+-*Elastic Net Regression*
+
+-*Evaluate models using standard regression metrics*
+
+-*Identify the best-performing model*
+
+## The target variable is 'Value'
+
+## Technologies & Libraries Used
+
+-Python
+
+-Pandas
+
+-NumPy
+
+-Scikit-learn
+
+-Matplotlib / Seaborn
+
+-Jupyter Notebook (.ipynb)
+
+## Machine Learning Workflow
+
+-Load the cleaned CSV dataset
+
+-Define target variable (Value)
+
+-Drop non-feature and leakage columns
+
+-One-hot encode remaining categorical features
+
+-Split data into training and testing sets
+
+-Apply feature scaling using StandardScaler
+
+-Train four regression models
+
+-Evaluate models using:
+
+-MAE (Mean Absolute Error)
+
+-MSE (Mean Squared Error)
+
+-RMSE (Root Mean Squared Error)
+
+-R² Score
+
+-Compare and analyze model performance
