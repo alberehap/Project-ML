@@ -598,3 +598,7 @@ BONUS_regression
 
 -The focus of this work is on model comparison and performance evaluation.
 
+# SOURCES
+- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html
+- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html
+- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html
