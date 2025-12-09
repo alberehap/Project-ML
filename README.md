@@ -566,3 +566,9 @@ In this section of the project, we used dataset (FIFA Players Dataset) to predic
 -R² Score
 
 -Compare and analyze model performance
+
+## More info on models implemented
+Linear Regression -->	Baseline regression model
+Ridge Regression -->	L2 regularization
+Lasso Regression -->	L1 regularization with feature selection
+Elastic Net	Combination of --> L1 & L2 regularization
