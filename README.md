@@ -581,4 +581,12 @@ Elastic Net	Combination of --> L1 & L2 regularization
 -Final comparison was done using R² Score and RMSE.
 
 # How to run?
+1. Find the Jupyter Notebook:
+BONUS_regression
+
+2. Open the .ipynb file
+
+3. Run all cells from top to bottom
+
+4. View evaluation metrics and model comparison results
 
