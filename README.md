@@ -194,7 +194,7 @@ This notebook prepares the **cat breeds dataset** for clustering analysis. The p
 * **Name:** Cat Breeds Dataset
 * **File:** `cat_breeds_dirty.csv`
 * **Source:** Kaggle
-* **Link:** [https://www.kaggle.com/datasets/iflixxe16/cat-breeds](https://www.kaggle.com/datasets/iflixxe16/cat-breeds)
+* **Link:** [https://www.kaggle.com/datasets/joannanplkrk/its-raining-cats](https://www.kaggle.com/datasets/joannanplkrk/its-raining-cats)
 * **Rows × Columns:** 1103 × 17 (raw)
 
 ### Main Columns
@@ -438,9 +438,10 @@ All models were compared based on Silhouette Score and practical clustering beha
 
 
 --------------------------------------------------------------------------------------------------
-# Data Preprocessing – Diabetes Dataset
 
-## Data Preprocessing for Machine Learning Analysis
+# Classification Preprocessing– Diabetes Dataset
+
+## Data Preprocessing for Classification Analysis
 
 This notebook prepares the **Diabetes dataset** for supervised machine learning models. The preprocessing pipeline focuses on handling missing and invalid values, outlier treatment, feature scaling, class imbalance handling using SMOTE, and saving clean train/test datasets. Visualizations are included to validate data distributions and relationships.
 
