@@ -401,80 +401,93 @@ This notebook prepares the cafe sales dataset for classification analysis. Steps
 # Regression Preprocessing
 # FIFA 21 Player Regression Preprocessing
 
-This repository contains a complete data preprocessing pipeline for the FIFA 21 player dataset, preparing it for regression modeling.
-
 ---
 
 ## Dataset
-
+(https://www.kaggle.com/datasets/yagunnersya/fifa-21-messy-raw-dataset-for-cleaning-exploring)
 **fifa21_raw_data.csv** (18,979 rows × 77 columns)  
-
-**Columns include:** Player ID, Name, Nationality, Positions, Age, OVA, POT, Team & Contract, Height, Weight, Foot, Ratings, Performance Stats, Work Rates, Contract Info, Hits, Value, Wage, Release Clause, etc.
+Mix of numerical (55) and categorical/object (22) features.
 
 ---
 
 ## Steps Performed
 
-### 1. Handle Missing Values & Remove Duplicates
-- Filled missing numeric values with median.
-- Filled missing categorical values with mode or `'Unknown'`.
-- Removed duplicate rows.
+### 1. Column Cleaning
 
-### 2. Column Cleaning
-- Removed special characters (`↓`) from column names.
-- Stripped extra whitespace from column names.
-- Dropped unnecessary columns: `photoUrl`, `playerUrl`, `LongName`.
+Removed special symbols (↓) and extra spaces from column names.
 
-### 3. Height & Weight Cleaning
-- Converted `Height` from feet/inches to centimeters.
-- Converted `Weight` from lbs/kg to kilograms.
+Dropped unnecessary columns: photoUrl, playerUrl, LongName.
 
-### 4. Currency Columns Cleaning
-- Converted `Value`, `Wage`, and `Release Clause` to numeric (from strings like €1.2M, €500K).
+### 2. Height & Weight Standardization
 
-### 5. Rating Columns Cleaning
-- Removed stars from `W/F`, `SM`, `IR` and converted to integers.
+Converted height from feet'inches" to centimeters.
 
-### 6. Hits Column Cleaning
-- Cleaned `Hits` column and converted values like '372K' to integers.
+Converted weight from lbs or kg to kilograms.
 
-### 7. Team & Contract Extraction
-- Extracted `Team`, `Contract_Start`, and `Contract_End` from the `Team & Contract` column.
-- Extracted 714 unique teams.
+### 3. Currency Cleaning
 
-### 8. Player Position Categorization
-- Extracted primary position from `Positions`.
-- Mapped positions to general categories: GK, DEF, MID, ATT.
+Converted Value, Wage, and Release Clause to numeric values in euros.
 
-### 9. Loan Status
-- Created a binary column `On_Loan` indicating whether a player is on loan (1) or not (0).
-- Total players on loan: 1013.
+Handled M for millions and K for thousands.
 
-### 10. Drop Unnecessary Columns
-- Dropped `Team & Contract`, `Positions`, `Loan Date End`.
+### 4. Ratings & Hits Cleaning
 
-### 11. Handling Missing Values
-- Ensured no remaining missing values after filling numeric and categorical columns.
+Removed stars (★) from columns: W/F, SM, IR.
 
-### 12. Outlier Handling
-- Capped outliers in `Height` and `Weight` using the IQR method.
+Converted Hits to integers, standardizing K notation.
 
-### 13. Feature Engineering
-- **Age Category:** Young, Prime, Experienced, Veteran.
-- **Performance Scores:** `Attack_Score`, `Defense_Score`, `Passing_Score`, `Physical_Score`.
-- **Growth Metrics:** `Potential_Growth = POT - OVA`, `Value_per_Rating`.
-- **BMI Calculation:** `Weight / (Height/100)^2`.
-- **Contract Metrics:** `Contract_Length`, `Years_Remaining`.
-- **Star Player Flag:** `Is_Star` for OVA >= 85.
+### 5. Team & Contract Parsing
 
-### 14. Encoding
-- **Binary Encoding:** `foot_encoded` (Right=1, Left=0).
-- **Ordinal Encoding:** AttackRate (`A/W`) and DefenseRate (`D/W`) as Low=1, Medium=2, High=3.
-- **One-Hot Encoding:** `Position_Category`.
-- **Frequency Encoding:** `Nationality_freq`, `Team_freq`.
-- **Label Encoding:** `Primary_Position`.
+Extracted Team, Contract_Start, and Contract_End from Team & Contract.
 
----
+Identified 714 unique teams
+
+### 6. Player Position Categorization
+
+Extracted Primary_Position and mapped into broader Position_Category (GK, DEF, MID, ATT)
+
+### 7. Loan Status
+
+Created On_Loan binary column from Loan Date End
+
+### 8. Missing Value Handling
+
+Filled numerical columns with median values.
+
+Filled categorical columns with mode or 'Unknown'.
+
+Result: 0 missing values
+
+### 9. Outlier Handling
+
+Capped Height and Weight using IQR method with multiplier 2.5
+
+### 10. Feature Engineering
+
+Age categories: Young, Prime, Experienced, Veteran.
+
+Performance indices: Attack_Score, Defense_Score, Passing_Score, Physical_Score.
+
+Growth metrics: Potential_Growth, Value_per_Rating.
+
+BMI calculation.
+
+Contract metrics: Contract_Length, Years_Remaining.
+
+Star player indicator: Is_Star (OVA >= 85)
+
+### 11. Encoding
+
+Binary encoding: foot_encoded.
+
+Ordinal encoding: AttackRate, DefenseRate from work rates.
+
+One-Hot encoding: Position_Category.
+
+Frequency encoding: Nationality, Team.
+
+Label encoding: Primary_Position.
+
 
 ## Dependencies
 
@@ -496,7 +509,6 @@ This repository contains a complete data preprocessing pipeline for the FIFA 21 
 ---
 
 ## References / Sources
-
 - Dataset: `fifa21_raw_data.csv`  
 - Feature scaling & preprocessing techniques: scikit-learn documentation  
 - Outlier detection using IQR: MachineLearningPlus ([Link](https://www.machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/))
