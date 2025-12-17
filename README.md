@@ -181,7 +181,7 @@ This notebook trains supervised learning models with hyperparameter tuning and g
 
 ---
 
-# Clustering Preprocessing
+# Clustering 
 
 ## Data Preprocessing for Clustering Analysis
 
@@ -439,7 +439,7 @@ All models were compared based on Silhouette Score and practical clustering beha
 
 --------------------------------------------------------------------------------------------------
 
-# Classification Preprocessing– Diabetes Dataset
+# Classification – Diabetes Dataset
 
 ## Data Preprocessing for Classification Analysis
 
