@@ -11,7 +11,7 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
 ### **Features:**
 
 1. **Dataset Selection & Loading**
-   - Loads classification dataset (`dirty_cafe_sales.csv`)
+   - Loads classification dataset (`diabetes.csv`)
    - Loads clustering dataset (`retail_store_sales.csv`)
    - Reads raw datasets from `data/raw/`
 
@@ -20,25 +20,32 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
    - Missing values analysis and summary
    - Duplicates detection and overview
    - Basic visualizations:
-     - Distribution plots (histograms)
-     - Scatter plots (Quantity vs Total Spent)
-     - Correlation matrix heatmap
+     - Distribution plots (Glucose distribution)
+     - Scatter plots (BMI vs Glucose)
+     - Correlation matrix heatmap for diabetes features
 
 3. **Model Evaluation** 
    - **Accuracy Score** - Calculates accuracy for all supervised models
+   - **Precision Score** - Computes weighted precision for each model
+   - **Recall Score** - Computes weighted recall for each model
    - **F1 Score** - Computes weighted F1 score for each model
+   - **ROC-AUC Score** - Calculates ROC-AUC for binary classification
    - **Confusion Matrix** - Creates visualizations for all models
    - **Classification Report** - Generates detailed per-class metrics
 
 ### **Input Files:**
-- `data/raw/dirty_cafe_sales.csv` - Classification dataset
+- `data/raw/diabetes.csv` - Classification dataset
 - `data/raw/retail_store_sales.csv` - Clustering dataset
-- `data/processed/X_test_classification.csv` - Test features
-- `data/processed/y_test_classification.csv` - Test labels
+- `data/processed/X_test_diabetes.csv` - Test features
+- `data/processed/y_test_diabetes.csv` - Test labels
 - `data/processed/y_pred_lr.csv` - Logistic Regression predictions
 - `data/processed/y_pred_nb.csv` - Naive Bayes predictions
 - `data/processed/y_pred_dt.csv` - Decision Tree predictions
 - `data/processed/y_pred_svm.csv` - SVM predictions
+- `data/processed/y_proba_lr.csv` - Logistic Regression probabilities
+- `data/processed/y_proba_nb.csv` - Naive Bayes probabilities
+- `data/processed/y_proba_dt.csv` - Decision Tree probabilities
+- `data/processed/y_proba_svm.csv` - SVM probabilities
 
 ### **Output:**
 - Evaluation results displayed in notebook
@@ -53,45 +60,68 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
 
 ##  **06_supervised_models.ipynb - Supervised Model Training**
 
-This notebook trains supervised learning models and generates predictions.
+This notebook trains supervised learning models with hyperparameter tuning and generates predictions.
 
 ### **Features:**
 
-1. **Model Training**
-   - Trains 4 supervised classification models:
-     - **Logistic Regression** - Linear classification model
-     - **Naive Bayes** - Probabilistic classifier
-     - **Decision Tree** - Tree-based classifier
-     - **SVM** - Support Vector Machine
+1. **Hyperparameter Tuning**
+   - Uses **RandomizedSearchCV** and **GridSearchCV** for optimal parameter selection
+   - Optimizes using **F1 score** (better for imbalanced datasets)
+   - 5-fold cross-validation for robust parameter selection
+   - All models use `class_weight='balanced'` to handle class imbalance
 
-2. **Prediction Generation**
+2. **Model Training**
+   - Trains 4 supervised classification models with tuned hyperparameters:
+     - **Logistic Regression** - Linear classification with L2 penalty, tuned C values
+     - **Naive Bayes** - Probabilistic classifier with optimized var_smoothing
+     - **Decision Tree** - Tree-based classifier with tuned depth, min_samples, and criterion
+     - **SVM** - Support Vector Machine with tuned C, kernel, and gamma parameters
+
+3. **Prediction Generation**
    - Generates predictions on test set for each model
-   - Saves predictions to CSV files for evaluation
+   - Generates prediction probabilities for ROC-AUC calculation
+   - Saves predictions and probabilities to CSV files for evaluation
 
-3. **Model Status Tracking**
+4. **Model Saving**
+   - Saves all trained models as pickle files using `joblib`
+   - Models saved in `models/` directory for future use
+
+5. **Model Status Tracking**
+   - Displays best hyperparameters found for each model
+   - Shows cross-validation scores
    - Simple comparison table showing training status
    - **Note**: This notebook does NOT calculate evaluation metrics
 
 ### **Input Files:**
-- `data/processed/X_train_classification.csv` - Training features
-- `data/processed/X_test_classification.csv` - Test features
-- `data/processed/y_train_classification.csv` - Training labels
-- `data/processed/y_test_classification.csv` - Test labels
+- `data/processed/X_train_diabetes.csv` - Training features
+- `data/processed/X_test_diabetes.csv` - Test features
+- `data/processed/y_train_diabetes.csv` - Training labels
+- `data/processed/y_test_diabetes.csv` - Test labels
 
 ### **Output Files:**
 - `data/processed/y_pred_lr.csv` - Logistic Regression predictions
 - `data/processed/y_pred_nb.csv` - Naive Bayes predictions
 - `data/processed/y_pred_dt.csv` - Decision Tree predictions
 - `data/processed/y_pred_svm.csv` - SVM predictions
+- `data/processed/y_proba_lr.csv` - Logistic Regression probabilities
+- `data/processed/y_proba_nb.csv` - Naive Bayes probabilities
+- `data/processed/y_proba_dt.csv` - Decision Tree probabilities
+- `data/processed/y_proba_svm.csv` - SVM probabilities
+- `models/logistic_regression.pkl` - Saved Logistic Regression model
+- `models/naive_bayes.pkl` - Saved Naive Bayes model
+- `models/decision_tree.pkl` - Saved Decision Tree model
+- `models/svm.pkl` - Saved SVM model
 
 ### **Dependencies:**
-- `pandas`, `numpy`
+- `pandas`, `numpy`, `joblib`
 - `scikit-learn` (for models: `LogisticRegression`, `GaussianNB`, `DecisionTreeClassifier`, `SVC`)
+- `scikit-learn` (for tuning: `GridSearchCV`, `RandomizedSearchCV`)
 
 ### **Important Notes:**
 -  **No evaluation metrics** are calculated in this notebook
-- All evaluation (Accuracy, F1, Confusion Matrix) is handled by `01_data_overview.ipynb`
-- Predictions are saved as CSV files to be loaded and evaluated by the evaluation notebook
+- All evaluation (Accuracy, F1, Precision, Recall, ROC-AUC, Confusion Matrix) is handled by `01_data_overview.ipynb`
+- Predictions and probabilities are saved as CSV files to be loaded and evaluated by the evaluation notebook
+- Models are saved as pickle files for deployment or future predictions
 
 ---
 
@@ -99,24 +129,27 @@ This notebook trains supervised learning models and generates predictions.
 
 ```
 06_supervised_models.ipynb (Training):
-    Train Models → Generate Predictions → Save to CSV
+    Hyperparameter Tuning → Train Models → Generate Predictions & Probabilities → Save to CSV & PKL
          ↓
-    data/processed/y_pred_*.csv
+    data/processed/y_pred_*.csv, y_proba_*.csv
+    models/*.pkl
          ↓
 01_data_overview.ipynb (Evaluation):
-    Load Predictions → Calculate Metrics → Visualize Results
+    Load Predictions & Probabilities → Calculate Metrics → Visualize Results
 ```
 
 ### **Step-by-Step Process:**
 
 1. **Run `06_supervised_models.ipynb`:**
-   - Trains all 4 models on training data
-   - Generates predictions on test set
-   - Saves predictions to CSV files in `data/processed/`
+   - Performs hyperparameter tuning using RandomizedSearchCV/GridSearchCV
+   - Trains all 4 models with optimal hyperparameters on training data
+   - Generates predictions and probabilities on test set
+   - Saves predictions and probabilities to CSV files in `data/processed/`
+   - Saves trained models as pickle files in `models/` directory
 
 2. **Run evaluation section in `01_data_overview.ipynb`:**
-   - Loads predictions from CSV files
-   - Calculates Accuracy and F1 Score for each model
+   - Loads predictions and probabilities from CSV files
+   - Calculates Accuracy, Precision, Recall, F1 Score, and ROC-AUC for each model
    - Creates Confusion Matrix visualizations
    - Generates detailed Classification Reports
 
@@ -126,15 +159,24 @@ This notebook trains supervised learning models and generates predictions.
 
 ### **Separation of Concerns:**
 
--  **`01_data_overview.ipynb`** handles **Evaluation** (Accuracy, F1, Confusion Matrix)
--  **`06_supervised_models.ipynb`** focuses only on **Model Training** (no evaluation metrics)
+-  **`01_data_overview.ipynb`** handles **Data Overview, EDA, and Evaluation** (Accuracy, Precision, Recall, F1, ROC-AUC, Confusion Matrix)
+-  **`06_supervised_models.ipynb`** focuses on **Hyperparameter Tuning and Model Training** (no evaluation metrics)
 -  Clear separation: Training vs. Evaluation
+
+### **Model Training Improvements:**
+
+- **Hyperparameter Tuning**: All models use RandomizedSearchCV/GridSearchCV with F1 score optimization
+- **Class Imbalance Handling**: All models use `class_weight='balanced'` for better performance on imbalanced data
+- **Model Persistence**: All trained models are saved as pickle files for future use
+- **5-Fold Cross-Validation**: Robust parameter selection using cross-validation
 
 ### **Benefits:**
 
 - Better code organization and modularity
 - Evaluation notebook has complete overview of data and results
-- Training notebook focuses solely on model implementation
+- Training notebook focuses on hyperparameter tuning and model implementation
+- Models are saved for deployment or future predictions
+- Optimized for imbalanced binary classification tasks
 - Easier maintenance and code review
 
 ---
@@ -335,49 +377,69 @@ All models were compared based on Silhouette Score and practical clustering beha
 # Classification Preprocessing
 
 Data Preprocessing for Classification Analysis
-This notebook prepares the cafe sales dataset for classification analysis. Steps include handling missing values, encoding categorical data, balancing classes, and splitting the dataset. Optional visualizations are included.
+This notebook prepares the diabetes dataset for binary classification analysis. Steps include handling missing values (treating zeros as missing), imputation, outlier handling, feature scaling, train/test split, and class balancing using SMOTE.
 
 ## Dataset
 
-- [cafe_sales.csv](https://www.kaggle.com/datasets/ahmedmohamed2003/cafe-sales-dirty-data-for-cleaning-training) (10000 rows × 8 columns)  
-- Columns: Transaction ID, Customer ID, Payment Method, Location, Quantity, Total Spent, Item Categories (Coffee, Tea, Juice, etc.), Transaction Date
+- **diabetes.csv** (768 rows × 9 columns)  
+- Columns: Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age, Outcome (target variable)
+- Binary classification task: Predict diabetes (Outcome: 0 = No Diabetes, 1 = Diabetes)
 
 ## Steps
 
-1. **Missing Values & Duplicates**
+1. **Missing Values Handling**
 
-   * Removed rows with missing essential values.
-   * Filled missing numeric values with median, categorical with mode.
-   * Removed duplicate rows.
-   * Saved cleaned dataset.
+   * Identified zero values in medical features (Glucose, BloodPressure, SkinThickness, Insulin, BMI) as missing values
+   * Converted zeros to NaN for these columns
+   * Applied median imputation using SimpleImputer
 
-2. **Encoding Categorical Data**
+2. **Outlier Handling**
 
-   * One-hot encoding for categorical columns: Item Categories, Location.
-   * Converted target `Payment Method` to numeric labels.
-   * Saved encoded dataset.
+   * Applied IQR (Interquartile Range) method to cap outliers
+   * Capped outliers for all numeric features to prevent extreme values from affecting the model
 
-3. **Feature Scaling**
+3. **Feature/Target Split**
 
-   * Applied StandardScaler to numeric columns: Quantity, Total Spent.
-   * Saved final preprocessed dataset.
+   * Separated features (X) from target variable (y = Outcome)
+   * Features shape: (768, 8)
+   * Target shape: (768,)
 
-4. **Train/Test Split & Class Balancing**
+4. **Feature Scaling**
 
-   * Split dataset into training (80%) and testing (20%) sets.
-   * Applied SMOTE to balance classes in training data.
+   * Applied StandardScaler to normalize all features
+   * Ensures all features are on the same scale for better model performance
+
+5. **Train/Test Split**
+
+   * Split dataset into training (80%) and testing (20%) sets
+   * Used stratified split to maintain class distribution
    * Final shapes:
+     * X_train: (614, 8)
+     * X_test:  (154, 8)
+     * y_train: (614,)
+     * y_test:  (154,)
 
-     * X_train: (8960, 23)
-     * X_test:  (1447, 23)
-     * y_train: (8960,)
-     * y_test:  (1447,)
+6. **Class Balancing (SMOTE)**
 
-5. **Visualizations**
+   * Applied SMOTE (Synthetic Minority Oversampling Technique) to balance classes in training data
+   * After SMOTE:
+     * X_train: (800, 8)
+     * y_train: (800,)
+   * Balanced class distribution for better model performance
 
-   * Histogram for `Total Spent`.
-   * Scatter plot of `Quantity` vs `Total Spent`.
-   * Correlation heatmap for numeric columns.
+7. **Save Preprocessed Data**
+
+   * Saved final preprocessed datasets:
+     * `data/processed/X_train_diabetes.csv`
+     * `data/processed/X_test_diabetes.csv`
+     * `data/processed/y_train_diabetes.csv`
+     * `data/processed/y_test_diabetes.csv`
+
+8. **Visualizations**
+
+   * Glucose distribution histogram
+   * Outcome (target) distribution count plot
+   * Correlation heatmap for all features
 
 ## Dependencies
 
@@ -385,16 +447,16 @@ This notebook prepares the cafe sales dataset for classification analysis. Steps
 
 ## My Role
 
-* Implemented preprocessing pipeline for classification: missing values, encoding, scaling, splitting, and class balancing.
-* Generated optional visualizations to verify preprocessing.
-* Saved intermediate and final datasets and pushed files to GitHub.
+* Implemented preprocessing pipeline for binary classification: missing value handling, outlier capping, scaling, splitting, and class balancing.
+* Generated visualizations to verify preprocessing and understand data distribution.
+* Saved intermediate and final datasets for model training.
 
 ## References / Sources
 
-* Dataset: [cafe_sales.csv](https://www.kaggle.com/datasets/ahmedmohamed2003/cafe-sales-dirty-data-for-cleaning-training)
+* Dataset: diabetes.csv (Pima Indians Diabetes Dataset)
 * Feature scaling & preprocessing techniques: [scikit-learn documentation](https://scikit-learn.org/stable/)
 * Handling class imbalance using SMOTE: [imbalanced-learn documentation](https://imbalanced-learn.org/stable/)
-* Outlier detection & preprocessing tips: [MachineLearningPlus](https://www.machinelearningplus.com/)
+* Outlier detection using IQR: [MachineLearningPlus](https://www.machinelearningplus.com/)
 
 -------------------------------------------------------
 
@@ -512,3 +574,106 @@ Label encoding: Primary_Position.
 - Dataset: `fifa21_raw_data.csv`  
 - Feature scaling & preprocessing techniques: scikit-learn documentation  
 - Outlier detection using IQR: MachineLearningPlus ([Link](https://www.machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/))
+
+------------------------------------------------------------------------------------------------------
+# FIFA Player Value Prediction – Regression Models
+In this section of the project, we used dataset (FIFA Players Dataset) to predict values of players using 4 regression models. The expected outcome is a comparison between the 4 models to determine which model is best.
+
+## Project Objectives
+
+-Use a preprocessed dataset provided by a teammate
+
+-Train and compare the following regression models:
+
+-*Linear Regression*
+
+-*Ridge Regression*
+
+-*Lasso Regression*
+
+-*Elastic Net Regression*
+
+-*Evaluate models using standard regression metrics*
+
+-*Identify the best-performing model*
+
+## The target variable is 'Value'
+
+## Technologies & Libraries Used
+
+-Python
+
+-Pandas
+
+-NumPy
+
+-Scikit-learn
+
+-Matplotlib / Seaborn
+
+-Jupyter Notebook (.ipynb)
+
+## Machine Learning Workflow
+
+-Load the cleaned CSV dataset
+
+-Define target variable (Value)
+
+-Drop non-feature and leakage columns
+
+-One-hot encode remaining categorical features
+
+-Split data into training and testing sets
+
+-Apply feature scaling using StandardScaler
+
+-Train four regression models
+
+-Evaluate models using:
+
+-MAE (Mean Absolute Error)
+
+-MSE (Mean Squared Error)
+
+-RMSE (Root Mean Squared Error)
+
+-R² Score
+
+-Compare and analyze model performance
+
+## More info on models implemented
+Linear Regression -->	Baseline regression model
+Ridge Regression -->	L2 regularization
+Lasso Regression -->	L1 regularization with feature selection
+Elastic Net	Combination of --> L1 & L2 regularization
+
+## Results Summary
+
+-All four models were successfully trained and evaluated.
+-Regularized models required feature scaling for optimal performance.
+-Elastic Net required increased iterations and stronger regularization to converge properly.
+-Final comparison was done using R² Score and RMSE.
+
+# How to run?
+1. Find the Jupyter Notebook:
+BONUS_regression
+
+2. Open the .ipynb file
+
+3. Run all cells from top to bottom
+
+4. View evaluation metrics and model comparison results
+
+## Notes
+
+-Models were trained inside the notebook environment.
+
+-Trained models were not saved since deployment was not required for this project.
+
+-The focus of this work is on model comparison and performance evaluation.
+
+# SOURCES
+- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html
+- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html
+- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html
+
