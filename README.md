@@ -757,11 +757,11 @@ In this section of the project, we used dataset (FIFA Players Dataset) to predic
 
 -*Linear Regression*
 
--*Ridge Regression*
+-*Decision Tree Regressor*
 
--*Lasso Regression*
+-*SVR*
 
--*Elastic Net Regression*
+-*Random Forest Regressor*
 
 -*Evaluate models using standard regression metrics*
 
@@ -811,17 +811,11 @@ In this section of the project, we used dataset (FIFA Players Dataset) to predic
 
 -Compare and analyze model performance
 
-## More info on models implemented
-Linear Regression -->	Baseline regression model
-Ridge Regression -->	L2 regularization
-Lasso Regression -->	L1 regularization with feature selection
-Elastic Net	Combination of --> L1 & L2 regularization
-
 ## Results Summary
 
 -All four models were successfully trained and evaluated.
 -Regularized models required feature scaling for optimal performance.
--Elastic Net required increased iterations and stronger regularization to converge properly.
+-SVR required specific scalarization for accurate results.
 -Final comparison was done using R² Score and RMSE.
 
 # How to run?
@@ -843,7 +837,7 @@ BONUS_regression
 -The focus of this work is on model comparison and performance evaluation.
 
 # SOURCES
-- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html
-- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html
-- https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html
+-https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html
+-https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeRegressor.html
+-https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html
 
