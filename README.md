@@ -183,58 +183,125 @@ This notebook trains supervised learning models with hyperparameter tuning and g
 
 # Clustering Preprocessing
 
-Data Preprocessing for Clustering Analysis  
-This notebook prepares the retail store sales dataset for clustering analysis. Steps include handling missing values, removing outliers, encoding categorical data, and feature scaling. Optional visualizations are provided for data inspection.
+## Data Preprocessing for Clustering Analysis
+
+This notebook prepares the **cat breeds dataset** for clustering analysis. The preprocessing pipeline focuses on cleaning dirty data, handling missing and invalid values, removing outliers, encoding categorical features, and scaling numerical features. Optional visualizations are included to verify data quality after preprocessing.
+
+---
 
 ## Dataset
 
-- [retail_store_sales.csv](https://www.kaggle.com/datasets/ahmedmohamed2003/retail-store-sales-dirty-for-data-cleaning) (12575 rows × 11 columns)  
-- Columns: Transaction ID, Customer ID, Category, Item, Price Per Unit, Quantity, Total Spent, Payment Method, Location, Transaction Date, Discount Applied  
+* **Name:** Cat Breeds Dataset
+* **File:** `cat_breeds_dirty.csv`
+* **Source:** Kaggle
+* **Link:** [https://www.kaggle.com/datasets/iflixxe16/cat-breeds](https://www.kaggle.com/datasets/iflixxe16/cat-breeds)
+* **Rows × Columns:** 1103 × 17 (raw)
 
-## Steps Performed  
+### Main Columns
 
-1. **Handle Missing Values & Remove Duplicates**  
-   - Removed rows with missing `Item`.  
-   - Filled missing numeric values with median.  
-   - Filled missing categorical values with mode.  
-   - Removed duplicate rows.  
-   - Saved cleaned dataset: `cleaned1_clustering.csv`.  
+* Breed
+* Age_in_years, Age_in_months
+* Gender
+* Neutered_or_spayed
+* Body_length, Weight
+* Fur_colour_dominant, Fur_pattern, Eye_colour
+* Allowed_outdoor
+* Preferred_food
+* Owner_play_time_minutes
+* Sleep_time_hours
+* Country
+* Latitude, Longitude
 
-2. **Outlier Detection & Removal**  
-   - Applied IQR method to numeric columns: Price Per Unit, Quantity, Total Spent.  
-   - Removed outliers (56 rows from Total Spent).  
-   - Saved dataset: `cleaned2_no_outliers.csv`.  
+---
 
-3. **Encoding Categorical Columns**  
-   - Applied one-hot encoding for categorical columns: Category, Item, Payment Method, Location, Discount Applied.  
-   - Saved encoded dataset: `encoded_clustering.csv`.  
+## Steps Performed
 
-4. **Feature Scaling**  
-   - Applied StandardScaler to numeric columns (Price Per Unit, Quantity, Total Spent).  
-   - Saved final preprocessed dataset: `final_preprocessed_clustering.csv`.  
+### 1. **Handle Missing Values & Remove Duplicates**
 
-5. **Visualizations**  
-   - Histogram for `Total Spent` after outlier removal.  
-   - Correlation heatmap for numeric columns after scaling.  
+* Replaced invalid negative values in `Age_in_years` and `Age_in_months` with `NaN`.
+* Filled missing numeric values using **median**.
+* Filled missing categorical values using **mode**.
+* Removed duplicate rows.
+* Resulted in a clean dataset with no missing values.
+
+---
+
+### 2. **Outlier Detection & Removal**
+
+* Applied the **IQR (Interquartile Range) method** to numeric columns:
+
+  * `Weight`
+  * `Body_length`
+* Removed extreme outliers to reduce skewness and improve clustering quality.
+* Dataset shape after this step: **998 × 15**.
+
+---
+
+### 3. **Encoding Categorical Columns**
+
+* Applied **One-Hot Encoding** using `pd.get_dummies(drop_first=True)`.
+* Encoded categorical features such as:
+
+  * Breed
+  * Gender
+  * Fur attributes
+  * Country
+  * Lifestyle-related attributes
+* Converted the dataset into a fully numeric format suitable for clustering.
+
+---
+
+### 4. **Feature Scaling**
+
+* Applied **StandardScaler** to all features.
+* Ensured all variables contribute equally to distance-based clustering algorithms (e.g. K-Means).
+
+---
+
+### 5. **Visualizations & Saving Processed Data**
+
+* Boxplots for `Weight` and `Body_length` to confirm outlier removal.
+* Histograms for all numeric features after cleaning.
+* Correlation heatmap for numeric columns to inspect relationships.
+* Saved final clustering-ready dataset to:
+
+```
+processed/final_clustering_ready.csv
+```
+
+---
 
 ## Dependencies
 
-- pandas, numpy, matplotlib, seaborn, scikit-learn  
+* pandas
+* numpy
+* matplotlib
+* seaborn
+* scikit-learn
+
+---
 
 ## My Role Description
 
-- Implemented the data preprocessing pipeline for clustering analysis.  
-- Handled missing values, outliers, categorical encoding, and feature scaling.  
-- Generated optional visualizations to verify preprocessing.  
-- Saved intermediate and final processed datasets and pushed files to GitHub.
+* Designed and implemented a complete preprocessing pipeline for clustering.
+* Cleaned dirty categorical and numeric data.
+* Handled missing, invalid, and duplicate values.
+* Removed outliers using the IQR method.
+* Encoded categorical features and scaled numeric features.
+* Generated visualizations to validate preprocessing steps.
+* Saved the final clustering-ready dataset for downstream modeling.
 
-### References / Sources
+---
 
-- Dataset: [retail_store_sales.csv](https://www.kaggle.com/datasets/ahmedmohamed2003/retail-store-sales-dirty-for-data-cleaning)  
-- Feature scaling & preprocessing techniques: [scikit-learn documentation](https://scikit-learn.org/stable/)  
-- How to detect outliers using IQR and Boxplots? — MachineLearningPlus  
-  (https://www.machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/)
+## References / Sources
 
+* Feature scaling & preprocessing techniques:
+  [https://scikit-learn.org/stable/modules/preprocessing.html](https://scikit-learn.org/stable/modules/preprocessing.html)
+
+* How to detect outliers using IQR and Boxplots — MachineLearningPlus:
+  [https://www.machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/](https://www.machinelearningplus.com/machine-learning/how-to-detect-outliers-using-iqr-and-boxplots/)
+
+* General best practices for data cleaning & clustering preparation
 _____________________________________________________________________
 
 # Clustering Model Training
