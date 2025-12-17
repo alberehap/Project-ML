@@ -12,7 +12,7 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
 
 1. **Dataset Selection & Loading**
    - Loads classification dataset (`diabetes.csv`)
-   - Loads clustering dataset (`retail_store_sales.csv`)
+   - Loads clustering dataset (`cat_breeds_dirty.csv`)
    - Reads raw datasets from `data/raw/`
 
 2. **Exploratory Data Analysis (EDA)**
@@ -35,7 +35,7 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
 
 ### **Input Files:**
 - `data/raw/diabetes.csv` - Classification dataset
-- `data/raw/retail_store_sales.csv` - Clustering dataset
+- `data/raw/cat_breeds_dirty.csv` - Clustering dataset
 - `data/processed/X_test_diabetes.csv` - Test features
 - `data/processed/y_test_diabetes.csv` - Test labels
 - `data/processed/y_pred_lr.csv` - Logistic Regression predictions
