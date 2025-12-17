@@ -438,89 +438,194 @@ All models were compared based on Silhouette Score and practical clustering beha
 
 
 --------------------------------------------------------------------------------------------------
-# Classification Preprocessing
+# Data Preprocessing – Diabetes Dataset
 
-Data Preprocessing for Classification Analysis
-This notebook prepares the diabetes dataset for binary classification analysis. Steps include handling missing values (treating zeros as missing), imputation, outlier handling, feature scaling, train/test split, and class balancing using SMOTE.
+## Data Preprocessing for Machine Learning Analysis
+
+This notebook prepares the **Diabetes dataset** for supervised machine learning models. The preprocessing pipeline focuses on handling missing and invalid values, outlier treatment, feature scaling, class imbalance handling using SMOTE, and saving clean train/test datasets. Visualizations are included to validate data distributions and relationships.
+
+---
 
 ## Dataset
 
-- **diabetes.csv** (768 rows × 9 columns)  
-- Columns: Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age, Outcome (target variable)
-- Binary classification task: Predict diabetes (Outcome: 0 = No Diabetes, 1 = Diabetes)
+* **Name:** Pima Indians Diabetes Dataset
+* **File:** `diabetes.csv`
+* **Source:** Kaggle
+* **Link:** [https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)
+* **Rows × Columns:** 768 × 9 (raw)
 
-## Steps
+### Columns
 
-1. **Missing Values Handling**
+* Pregnancies
+* Glucose
+* BloodPressure
+* SkinThickness
+* Insulin
+* BMI
+* DiabetesPedigreeFunction
+* Age
+* Outcome (Target)
 
-   * Identified zero values in medical features (Glucose, BloodPressure, SkinThickness, Insulin, BMI) as missing values
-   * Converted zeros to NaN for these columns
-   * Applied median imputation using SimpleImputer
+---
 
-2. **Outlier Handling**
+## Steps Performed
 
-   * Applied IQR (Interquartile Range) method to cap outliers
-   * Capped outliers for all numeric features to prevent extreme values from affecting the model
+### 1. **Import Libraries**
 
-3. **Feature/Target Split**
+* pandas, numpy, os
+* scikit-learn (StandardScaler, SimpleImputer, train_test_split)
+* imbalanced-learn (SMOTE)
 
-   * Separated features (X) from target variable (y = Outcome)
-   * Features shape: (768, 8)
-   * Target shape: (768,)
+---
 
-4. **Feature Scaling**
+### 2. **Load Raw Dataset**
 
-   * Applied StandardScaler to normalize all features
-   * Ensures all features are on the same scale for better model performance
+* Loaded the dataset from `data/raw/diabetes.csv`.
+* Verified file existence before loading.
+* Inspected:
 
-5. **Train/Test Split**
+  * Dataset shape
+  * First rows
+  * Data types and memory usage
+  * Statistical summary of numerical features
 
-   * Split dataset into training (80%) and testing (20%) sets
-   * Used stratified split to maintain class distribution
-   * Final shapes:
-     * X_train: (614, 8)
-     * X_test:  (154, 8)
-     * y_train: (614,)
-     * y_test:  (154,)
+**Initial Shape:** `768 × 9`
 
-6. **Class Balancing (SMOTE)**
+---
 
-   * Applied SMOTE (Synthetic Minority Oversampling Technique) to balance classes in training data
-   * After SMOTE:
-     * X_train: (800, 8)
-     * y_train: (800,)
-   * Balanced class distribution for better model performance
+### 3. **Missing Values Overview**
 
-7. **Save Preprocessed Data**
+* Checked missing values count and percentage per column.
+* Observed no explicit missing values in the raw dataset.
 
-   * Saved final preprocessed datasets:
-     * `data/processed/X_train_diabetes.csv`
-     * `data/processed/X_test_diabetes.csv`
-     * `data/processed/y_train_diabetes.csv`
-     * `data/processed/y_test_diabetes.csv`
+---
 
-8. **Visualizations**
+### 4. **Handle Zero Values as Missing**
 
-   * Glucose distribution histogram
-   * Outcome (target) distribution count plot
-   * Correlation heatmap for all features
+* Converted invalid zero values to `NaN` in the following columns:
+
+  * Glucose
+  * BloodPressure
+  * SkinThickness
+  * Insulin
+  * BMI
+* These zero values are medically invalid and treated as missing.
+
+---
+
+### 5. **Impute Missing Values**
+
+* Applied **median imputation** using `SimpleImputer`.
+* Ensured robustness against outliers.
+
+ Result: No remaining missing values.
+
+---
+
+### 6. **Outlier Handling (IQR Capping)**
+
+* Applied **IQR-based capping** (winsorization) to numerical features.
+* Extreme values were capped instead of removed to preserve data size.
+* Target column (`Outcome`) was excluded from outlier processing.
+
+---
+
+### 7. **Feature / Target Split**
+
+* Separated the dataset into:
+
+  * Features (`X`)
+  * Target (`y` = Outcome)
+
+**Features Shape:** `768 × 8`
+
+---
+
+### 8. **Feature Scaling**
+
+* Applied **StandardScaler** to all feature columns.
+* Standardization ensures equal contribution of features to ML models.
+
+---
+
+### 9. **Train / Test Split**
+
+* Split the data into training and testing sets:
+
+  * 80% training
+  * 20% testing
+* Used `stratify=y` to preserve class distribution.
+
+---
+
+### 10. **Handle Class Imbalance (SMOTE)**
+
+* Applied **SMOTE (Synthetic Minority Over-sampling Technique)** to the training set.
+* Balanced the target classes to a 50/50 distribution.
+
+**Training set after SMOTE:** `800 × 8`
+
+---
+
+### 11. **Save Preprocessed Data**
+
+* Saved processed datasets to `data/processed/`:
+
+```
+X_train_diabetes.csv
+X_test_diabetes.csv
+y_train_diabetes.csv
+y_test_diabetes.csv
+```
+
+---
+
+### 12. **Final Check**
+
+* Verified dataset shapes after preprocessing.
+* Confirmed balanced class distribution in `y_train`.
+
+---
+
+### 13. **Visualizations**
+
+* Histogram of **Glucose** distribution.
+* Bar plot of **Outcome** (target) distribution.
+* Correlation heatmap for all numerical features.
+* Saved all figures to `results/figures/`.
+
+---
 
 ## Dependencies
 
-`pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `imblearn`
+* pandas
+* numpy
+* matplotlib
+* seaborn
+* scikit-learn
+* imbalanced-learn
 
-## My Role
+---
 
-* Implemented preprocessing pipeline for binary classification: missing value handling, outlier capping, scaling, splitting, and class balancing.
-* Generated visualizations to verify preprocessing and understand data distribution.
-* Saved intermediate and final datasets for model training.
+## My Role Description
+
+* Implemented a full preprocessing pipeline for a supervised ML problem.
+* Handled invalid and missing values using domain-aware rules.
+* Treated outliers using IQR capping.
+* Scaled features and addressed class imbalance with SMOTE.
+* Generated visualizations for data understanding and validation.
+* Saved clean, model-ready train and test datasets.
+
+---
 
 ## References / Sources
 
-* Dataset: diabetes.csv (Pima Indians Diabetes Dataset)
-* Feature scaling & preprocessing techniques: [scikit-learn documentation](https://scikit-learn.org/stable/)
-* Handling class imbalance using SMOTE: [imbalanced-learn documentation](https://imbalanced-learn.org/stable/)
-* Outlier detection using IQR: [MachineLearningPlus](https://www.machinelearningplus.com/)
+* Dataset: [https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)
+* Scikit-learn preprocessing documentation:
+  [https://scikit-learn.org/stable/modules/preprocessing.html](https://scikit-learn.org/stable/modules/preprocessing.html)
+* SMOTE documentation (imbalanced-learn):
+  [https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html)
+* IQR-based outlier handling techniques
 
 -------------------------------------------------------
 
