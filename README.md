@@ -13,6 +13,7 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
 1. **Dataset Selection & Loading**
    - Loads classification dataset (`diabetes.csv`)
    - Loads clustering dataset (`cat_breeds_dirty.csv`)
+   - Loads regression dataset (`fifa_21.csv`)
    - Reads raw datasets from `data/raw/`
 
 2. **Exploratory Data Analysis (EDA)**
@@ -36,6 +37,7 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
 ### **Input Files:**
 - `data/raw/diabetes.csv` - Classification dataset
 - `data/raw/cat_breeds_dirty.csv` - Clustering dataset
+- `data/raw/fifa_21.csv - regression dataset
 - `data/processed/X_test_diabetes.csv` - Test features
 - `data/processed/y_test_diabetes.csv` - Test labels
 - `data/processed/y_pred_lr.csv` - Logistic Regression predictions
@@ -46,11 +48,15 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
 - `data/processed/y_proba_nb.csv` - Naive Bayes probabilities
 - `data/processed/y_proba_dt.csv` - Decision Tree probabilities
 - `data/processed/y_proba_svm.csv` - SVM probabilities
+- `Notebooks -1_EDA_Clustering
+- `Notebooks -2_EDA_Classification
+- `Notebooks -3_EDA_Regression
 
 ### **Output:**
 - Evaluation results displayed in notebook
 - Confusion matrix visualizations (2x2 grid)
 - Classification reports for each model
+- EDA for Clustering,Regression,and Classification
 
 ### **Dependencies:**
 - `pandas`, `numpy`, `matplotlib`, `seaborn`
