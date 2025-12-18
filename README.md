@@ -17,6 +17,20 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
    - Reads raw datasets from `data/raw/`
 
 2. **Exploratory Data Analysis (EDA)**
+   Clustering Dataset
+
+Dataset contains unlabeled data
+
+Suitable for algorithms such as K-Means, DBSCAN, Gaussian Mixture Model,and KBSCAN
+   Classification / Regression Dataset
+
+Dataset contains a target column
+
+Suitable for:
+
+Classification (categorical target)
+
+Regression (numerical target)
    - Dataset shape overview
    - Missing values analysis and summary
    - Duplicates detection and overview
@@ -25,7 +39,7 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
      - Scatter plots (BMI vs Glucose)
      - Correlation matrix heatmap for diabetes features
 
-3. **Model Evaluation** 
+4. **Model Evaluation** 
    - **Accuracy Score** - Calculates accuracy for all supervised models
    - **Precision Score** - Computes weighted precision for each model
    - **Recall Score** - Computes weighted recall for each model
