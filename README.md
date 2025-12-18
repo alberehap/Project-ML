@@ -18,13 +18,14 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
 
 2. **Exploratory Data Analysis (EDA)**
 
-   Clustering Dataset
+   1-Clustering Dataset
 
 Dataset contains unlabeled data
 
 Suitable for algorithms such as K-Means, DBSCAN, Gaussian Mixture Model,and KBSCAN
    
-   Classification / Regression Dataset
+   
+   2-Classification / Regression Dataset
 
 Dataset contains a target column
 
@@ -33,6 +34,7 @@ Suitable for:
 Classification (categorical target)
 
 Regression (numerical target)
+   
    - Dataset shape overview
    - Missing values analysis and summary
    - Duplicates detection and overview
