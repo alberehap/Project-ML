@@ -17,11 +17,13 @@ This notebook handles dataset preparation, exploratory data analysis, and model 
    - Reads raw datasets from `data/raw/`
 
 2. **Exploratory Data Analysis (EDA)**
+
    Clustering Dataset
 
 Dataset contains unlabeled data
 
 Suitable for algorithms such as K-Means, DBSCAN, Gaussian Mixture Model,and KBSCAN
+   
    Classification / Regression Dataset
 
 Dataset contains a target column
